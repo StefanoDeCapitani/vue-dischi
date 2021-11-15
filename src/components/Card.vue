@@ -18,7 +18,16 @@
 <script>
 export default {
   name: "Card",
-  props: ["poster", "title", "author", "year"],
+  props: {
+    poster: {
+      type: String,
+      default:
+        "https://psicomotricitasettimo.it/wp-content/uploads/woocommerce-placeholder.png",
+    },
+    title: String,
+    author: String,
+    year: String,
+  },
 };
 </script>
 

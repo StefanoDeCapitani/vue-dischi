@@ -15,6 +15,9 @@ export default {
     Header,
     Main,
   },
+  created() {
+    document.title = "Vue Dischi";
+  },
 };
 </script>
 
