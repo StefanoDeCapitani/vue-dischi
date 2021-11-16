@@ -74,7 +74,7 @@ export default {
       flex: 0 0 100%;
       display: flex;
       align-items: center;
-      font-size: 1.2rem;
+      font-size: 1rem;
       .filter__genre-label {
         line-height: 45px;
         padding: 0 1rem;
@@ -82,7 +82,7 @@ export default {
       }
       .filter__genre-select {
         flex: 1 0 auto;
-        height: 48px;
+        height: 45px;
         padding: 0 0.5rem;
         font-size: inherit;
         &:focus {
@@ -94,7 +94,7 @@ export default {
     .btn--filter-apply,
     .btn--filter-remove {
       padding: 0.8rem 1.5rem;
-      font-size: 1.2rem;
+      font-size: 1rem;
     }
 
     .btn--filter-apply {
