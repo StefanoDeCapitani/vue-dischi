@@ -15,27 +15,14 @@
 
 <script>
 import Card from "@/components/Card.vue";
-import axios from "axios";
 
 export default {
   name: "CardsGrid",
   components: {
     Card,
   },
-  data() {
-    return {
-      albumsList: [],
-    };
-  },
-  mounted() {
-    axios
-      .get("https://flynn.boolean.careers/exercises/api/array/music")
-      .then((resp) => {
-        this.albumsList.push(...resp.data.response);
-      });
-    setTimeout(() => {
-      this.$emit("contentLoaded");
-    }, 1000);
+  props: {
+    albumsList: [],
   },
 };
 </script>
@@ -50,9 +37,6 @@ export default {
 
   padding: 2rem 0;
   margin: auto;
-
-  display: grid;
-  place-content: center;
 
   .cards-grid {
     $gap: 0.7rem;
