@@ -96,10 +96,7 @@ export default {
       align-items: center;
       font-size: 1rem;
       gap: 1rem;
-      .artist-filter {
-        flex: 0 0 100%;
-        display: flex;
-      }
+      .artist-filter,
       .genre-filter {
         flex: 0 0 100%;
         display: flex;
