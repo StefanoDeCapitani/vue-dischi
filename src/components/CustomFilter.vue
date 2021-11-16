@@ -1,20 +1,37 @@
 <template>
   <div class="container">
-    <div></div>
-    <form @submit.prevent="onSubmit" class="filter">
-      <div class="filter__input">
-        <label class="filter__genre-label" for="genre-select"
-          >Scegli un genere:
-        </label>
-        <select
-          id="genre-select"
-          class="filter__genre-select"
-          v-model="selectedGenre"
-        >
-          <option v-for="(genre, i) in genreList" :key="i" :value="genre">
-            {{ genre }}
-          </option>
-        </select>
+    <form @submit.prevent="onSubmit" class="form">
+      <div class="filters">
+        <div class="artist-filter">
+          <label class="artist-filter__label" for="artist-select"
+            >Scegli un artista:
+          </label>
+          <select
+            id="artist-select"
+            class="artist-filter__select"
+            v-model="selectedAuthor"
+            :disabled="selectedGenre !== ''"
+          >
+            <option v-for="(author, i) in authorsList" :key="i" :value="author">
+              {{ author }}
+            </option>
+          </select>
+        </div>
+        <div class="genre-filter">
+          <label class="genre-filter__label" for="genre-select"
+            >Scegli un genere:
+          </label>
+          <select
+            id="genre-select"
+            class="genre-filter__select"
+            v-model="selectedGenre"
+            :disabled="selectedAuthor !== ''"
+          >
+            <option v-for="(genre, i) in genreList" :key="i" :value="genre">
+              {{ genre }}
+            </option>
+          </select>
+        </div>
       </div>
       <button class="btn btn--filter-apply">APPLICA FILTRO</button>
       <button
@@ -33,19 +50,21 @@ export default {
   name: "CustomFilter",
   props: {
     genreList: Array,
+    authorsList: Array,
   },
   data() {
     return {
+      selectedAuthor: "",
       selectedGenre: "",
     };
   },
   methods: {
     onSubmit() {
-      this.$emit("filter-apply", this.selectedGenre);
+      this.$emit("filter-apply", [this.selectedAuthor, this.selectedGenre]);
     },
     onRemoveClick() {
       this.selectedGenre = "";
-      this.$emit("filter-remove");
+      (this.selectedAuthor = ""), this.$emit("filter-remove");
     },
   },
 };
@@ -62,7 +81,7 @@ export default {
   margin: auto;
 
   color: white;
-  .filter {
+  .form {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
@@ -70,21 +89,34 @@ export default {
     width: 50%;
     margin: auto;
 
-    .filter__input {
+    .filters {
       flex: 0 0 100%;
       display: flex;
+      flex-wrap: wrap;
       align-items: center;
       font-size: 1rem;
-      .filter__genre-label {
+      gap: 1rem;
+      .artist-filter {
+        flex: 0 0 100%;
+        display: flex;
+      }
+      .genre-filter {
+        flex: 0 0 100%;
+        display: flex;
+      }
+      .artist-filter__label,
+      .genre-filter__label {
         line-height: 45px;
         padding: 0 1rem;
         background-color: $bg-color-light;
       }
-      .filter__genre-select {
+      .artist-filter__select,
+      .genre-filter__select {
         flex: 1 0 auto;
         height: 45px;
         padding: 0 0.5rem;
         font-size: inherit;
+        border-radius: none;
         &:focus {
           outline: none;
         }

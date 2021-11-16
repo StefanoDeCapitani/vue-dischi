@@ -2,6 +2,7 @@
   <main class="main">
     <Loader v-if="loading" />
     <CustomFilter
+      :authorsList="authorsList"
       :genreList="genreList"
       @filter-apply="onFilterApply"
       @filter-remove="onFilterRemove"
@@ -27,6 +28,7 @@ export default {
     return {
       loading: true,
       albumsList: [],
+      selectedAuthor: "",
       selectedGenre: "",
     };
   },
@@ -37,19 +39,32 @@ export default {
         return acc;
       }, []);
     },
+    authorsList: function () {
+      return this.albumsList.reduce((acc, el) => {
+        if (!acc.includes(el.author)) acc.push(el.author);
+        return acc;
+      }, []);
+    },
     filteredList: function () {
       if (this.selectedGenre) {
         return this.albumsList.filter((el) => el.genre === this.selectedGenre);
+      }
+      if (this.selectedAuthor) {
+        return this.albumsList.filter(
+          (el) => el.author === this.selectedAuthor
+        );
       }
       return this.albumsList;
     },
   },
   methods: {
     onFilterApply(genre) {
-      this.selectedGenre = genre;
+      this.selectedAuthor = genre[0];
+      this.selectedGenre = genre[1];
     },
     onFilterRemove() {
       this.selectedGenre = "";
+      this.selectedAuthor = "";
     },
   },
 
