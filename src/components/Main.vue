@@ -1,12 +1,11 @@
 <template>
   <main class="main">
-    <Loader v-if="loading"></Loader>
-    <select name="" id="" v-model="selectedGenre">
-      <option v-for="(genre, i) in genreList" :key="i" :value="genre">
-        {{ genre }}
-      </option>
-    </select>
-    <button>APPLICA FILTRO</button>
+    <Loader v-if="loading" />
+    <CustomFilter
+      :genreList="genreList"
+      @filter-apply="onFilterApply"
+      @filter-remove="onFilterRemove"
+    />
     <CardsGrid :albumsList="filteredList" />
   </main>
 </template>
@@ -14,6 +13,7 @@
 <script>
 import CardsGrid from "@/components/CardsGrid.vue";
 import Loader from "@/components/Loader.vue";
+import CustomFilter from "@/components/CustomFilter.vue";
 import axios from "axios";
 
 export default {
@@ -21,6 +21,7 @@ export default {
   components: {
     CardsGrid,
     Loader,
+    CustomFilter,
   },
   data() {
     return {
@@ -41,6 +42,14 @@ export default {
         return this.albumsList.filter((el) => el.genre === this.selectedGenre);
       }
       return this.albumsList;
+    },
+  },
+  methods: {
+    onFilterApply(genre) {
+      this.selectedGenre = genre;
+    },
+    onFilterRemove() {
+      this.selectedGenre = "";
     },
   },
 

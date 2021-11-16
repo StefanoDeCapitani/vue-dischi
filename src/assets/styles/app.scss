@@ -13,3 +13,10 @@ body {
   font-family: "Montserrat", sans-serif;
   background-color: $bg-color-dark;
 }
+
+.btn {
+  background: transparent;
+  border: none;
+  color: inherit;
+  font-size: inherit;
+}
