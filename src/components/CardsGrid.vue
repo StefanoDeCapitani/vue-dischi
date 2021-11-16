@@ -33,6 +33,9 @@ export default {
       .then((resp) => {
         this.albumsList.push(...resp.data.response);
       });
+    setTimeout(() => {
+      this.$emit("contentLoaded");
+    }, 1000);
   },
 };
 </script>
